@@ -19,18 +19,21 @@ body{
     font-family: sans-serif;
 }
 
-main .disp-none{
+.disp-none{
     display: none;
 }
 
 
 /* HEADER */
 header{
-    height: 100px;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 50px;
+    color: greenyellow;
+    background-color: black;
+    border-bottom: 2px solid greenyellow;
 }
 
 #left-header {
@@ -43,18 +46,33 @@ header{
 }
 
 header button{
-    padding: 5px 20px;
+    padding: 10px 25px;
+    font-size: 20px;
     border-radius: 10px;
     font-weight: bold;
+    margin: 0 20px;
+    cursor: pointer;
+    border: 2px solid greenyellow;
 }
 
+select{
+    padding: 5px 10px;
+    border : 1px solid black;
+    font-size: 20px;
+    border: 2px solid greenyellow;
+}
+
+label{
+    font-size: 20px;
+    font-weight: bold;
+}
 /* MAIN */
 
 main{
-    background-image: url(../img/cmback.jpg);
+    background-image: url(../img/bombbg.jpg);
     background-size: contain;
-    height: calc(100vh - 180px);
-    padding: 100px 0 ;
+    height: 80vh;
+    padding: 50px;
 }
 
 #grid{
@@ -69,10 +87,10 @@ main{
 
 #start-play{
     text-align: center;
-    font-size: 50px;
+    font-size: 25px;
     padding: 100px;
     border-radius: 20px;
-    border: 2px solid red;
+    border: 2px solid greenyellow;
     max-width: 1000px;
     margin: 0 auto;
     background-color: rgba(0, 0,0, 0.5);
@@ -81,11 +99,12 @@ main{
 
 
 .cell{
-    border: 1px solid aliceblue;
+    border: 1px solid greenyellow;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: black;
+    cursor: pointer;
 }
 
 #grid.easy .cell {
@@ -104,18 +123,52 @@ main{
 }
 
 .cell.clicked{
-    background-color: blue;
+    background-image: url(../img/fiore.png);
+    background-size: cover;
 }
 
 .cell.bomb{
-    background-color : red;
+    background-image: url(../img/nuke.png);
+    background-size: cover;
+    background-position: center;
+}
+
+#user-display{
+    height: 80px;
+    width: 400px;
+    margin: 50px auto; 
+    padding :10px;
+
+    background-image: url(../img/displaybg.jpg);
+    background-size: cover;
+    background-position: center;
+    border: 2px solid black;
+
+    font-size: 30px;
+    font-weight: bold;
+    color:greenyellow;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* FOOTER */
 
 footer{
-    height: 80px;
+    height: 10vh;
     line-height: 80px;
     vertical-align: middle;
     padding : 0 30px;
+    color : greenyellow;
+    background-color: black;
+    border-top: 2px solid greenyellow;
+}
+
+#user-display.disp-none{
+    display: none;
+}
+
+#grid.disp-none{
+    display: none;
 }

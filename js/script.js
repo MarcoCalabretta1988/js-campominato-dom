@@ -35,11 +35,13 @@ const grid = document.getElementById('grid');
 const startScreen = document.getElementById('start-play');
 const button = document.getElementById('button');
 const select = document.getElementById('difficulty');
+const userDisplay = document.getElementById('user-display');
 
 
 
 //* INIZIALIZZAZIONE VALIDAZIONE
 let isPlaying = false;
+let score = 0;
 
 // *CREO LOGICA AD AZIONAMENTO PULSANTE
 
@@ -76,6 +78,7 @@ let choise = true;
 
 //RENDO VISIBILE IL CAMPO E INVISIBILE LA SCRITTA INIZIALE
 grid.classList.remove('disp-none');
+userDisplay.classList.remove('disp-none');
 startScreen.classList.add('disp-none');
 
 
@@ -86,20 +89,24 @@ if(isPlaying){
 
         isPlaying = false;
         startScreen.classList.remove('disp-none');
+        userDisplay.classList.add('disp-none');
         grid.classList.add('disp-none');
         button.innerText = 'Play';
+        userDisplay.innerText = '';
+        score = 0;
         grid.innerHTML= '';
+        userDisplay.innerHTML = '';
 
         return;
     }   
 }
-
+else{
 //* INIZIALIZZO VALORI -------------------------------
 const square = parseInt(select.value);
 const totalCells = square * square ;
 const bomb = bombGenerator(16, totalCells);
 const maxScore = totalCells - 16;
-let score = 0;
+
 let cellClicked = [];
 isPlaying = true;
 
@@ -131,13 +138,27 @@ for(let i = 1 ; i <= totalCells ; i++) {
 
           // IN CASO SI PRENDA LA BOMBA
         if( bomb.includes(clicked)){
-            cell.classList.add('bomb');
             score = 0 ;
-            alert ('you die');
+            userDisplay.innerText = 'YOU DIE!';
+            console.log('cell.value=' ,cell.getAttribute('data-index'))
+            grid.innerHTML = '';
+            //stampo tutte le bombe
+            for (let i = 1 ; i<= totalCells; i++){
+                const cell =  createCell(i);
+                const cellIndex = parseInt(cell.getAttribute('data-index'));
+                if (bomb.includes(cellIndex)){
+                    cell.classList.add('bomb');
+                }
+                else if (cellClicked.includes(cellIndex)){
+                    cell.classList.add('clicked');
+                }
+                grid.appendChild(cell); 
+            }
+
         }
           // NEL CASO SI RIESCANO A CLICCARE TUTTE LE CELLE SENZA PRENDERE LE BOMBE
         else if(score === maxScore ){
-            alert ('Hai vinto ');
+            userDisplay.innerText = 'HAI VINTO!';
             score = 0 ;
 
         }
@@ -148,13 +169,17 @@ for(let i = 1 ; i <= totalCells ; i++) {
            if (!(cellClicked.includes(i))){
            cellClicked.push(i);
            score++;
+           userDisplay.innerText = `SCORE: ${score}`;
            console.log ( 'Cella cliccata: ' + i, score , maxScore);
            }
        }
     })
-    
+
     //* INSERISCO IN PAGINA
     grid.appendChild(cell); 
+  
 
 }
+}
 });
+
