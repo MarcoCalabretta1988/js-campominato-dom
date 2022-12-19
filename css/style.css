@@ -16,7 +16,7 @@
 /* GENERIC */
 
 body{
-    font-family: sans-serif;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .disp-none{
@@ -53,6 +53,7 @@ header button{
     margin: 0 20px;
     cursor: pointer;
     border: 2px solid greenyellow;
+    font-family: 'Press Start 2P', cursive;
 }
 
 select{
@@ -60,6 +61,7 @@ select{
     border : 1px solid black;
     font-size: 20px;
     border: 2px solid greenyellow;
+    font-family: 'Press Start 2P', cursive;
 }
 
 label{
