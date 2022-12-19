@@ -58,7 +58,7 @@ button.addEventListener('click' , () => {
         return cell;
     }
     
-    const bombGenerator = (number , max) => {
+    const createArryNoRepeat = (number , max) => {
         const bombPosition = [];
         let nRandom = '';
         for ( let i = 0 ; i < number ; i++){
@@ -101,10 +101,11 @@ if(isPlaying){
     }   
 }
 else{
+    
 //* INIZIALIZZO VALORI -------------------------------
 const square = parseInt(select.value);
 const totalCells = square * square ;
-const bomb = bombGenerator(16, totalCells);
+const bomb = createArryNoRepeat(16, totalCells);
 const maxScore = totalCells - 16;
 
 let cellClicked = [];
