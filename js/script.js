@@ -25,14 +25,6 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
  */
 
 
-// * FUNZIONI -----------------------------------------------
-
-    const createCellNumber = (number) => {
-        const cell = document.createElement( 'div');
-        cell.append(number);
-        cell.classList.add('cell');
-        return cell;
-    }
 
 
 
@@ -53,15 +45,41 @@ let isPlaying = false;
 
 button.addEventListener('click' , () => {
 
-//* INIZIALIZZO VALORI
-const square = parseInt(select.value);
-const totalCells = square * square ;
-grid.classList.remove('disp-none');
-startScreen.classList.add('disp-none');
-grid.innerHTML= '';
+
+    //! FUNZIONI INTERNE ALL'EVENTO -----------------------------------
+
+
+    const createCell = (number) => {
+        const cell = document.createElement( 'div');
+        cell.setAttribute('data-index' , number);
+        cell.classList.add('cell');
+        return cell;
+    }
+    
+    const bombGenerator = (number , max) => {
+        const bombPosition = [];
+        let nRandom = '';
+        for ( let i = 0 ; i < number ; i++){
+            nRandom = Math.floor(Math.random() * (max - 1))+1;
+            if (bombPosition.includes(nRandom)){
+            nRandom = Math.floor(Math.random() * (max - 1))+1;
+            }
+
+            bombPosition.push (nRandom);
+        }
+        return bombPosition;
+    }
+   //!----------------------------------------------------------------------
+   
+//VARIABILE DI VALIDAZIONE
 let choise = true;
 
-//*VALIDAZIONE RESET
+//RENDO VISIBILE IL CAMPO E INVISIBILE LA SCRITTA INIZIALE
+grid.classList.remove('disp-none');
+startScreen.classList.add('disp-none');
+
+
+//*VALIDAZIONE AND RESET
 if(isPlaying){
     choise = confirm('Sei sicuro?');
     if (choise){
@@ -70,30 +88,71 @@ if(isPlaying){
         startScreen.classList.remove('disp-none');
         grid.classList.add('disp-none');
         button.innerText = 'Play';
+        grid.innerHTML= '';
+
         return;
     }   
 }
 
+//* INIZIALIZZO VALORI -------------------------------
+const square = parseInt(select.value);
+const totalCells = square * square ;
+const bomb = bombGenerator(16, totalCells);
+const maxScore = totalCells - 16;
+let score = 0;
+let cellClicked = [];
 isPlaying = true;
+
+button.innerText = 'Ricomincia';
+
+console.log(bomb, maxScore);
+
+//*GESTINSCO DIFFICOLTA
+if(square === 7){
+    grid.className = 'hard';
+}
+else if (square === 9){
+    grid.className = 'medium';
+}
+else {
+    grid.className = 'easy';
+}
+
+
 for(let i = 1 ; i <= totalCells ; i++) {
-    button.innerText = 'Ricomincia';
-    const cell =  createCellNumber(i);
-    //*GESTINSCO DIFFICOLTA
-    if(square === 7){
-        grid.classList.add('hard');
-    }
-    else if (square === 9){
-        grid.classList.add('medium');
-    }
-    else {
-        grid.classList.add('easy');
-    }
-    
+    //CREAZIONE CELLE
+    const cell =  createCell(i);
+
     //* AGGIUNGO CLASSE A CLICK DELLA CELLA
     cell.addEventListener('click' , () =>{
-        cell.classList.toggle('clicked');
-        console.log ( 'Cella cliccata: ' + i);
+        //ASSEGNO UN VALORE IN INDEX A OGNI CELLA
+        const clicked = parseInt(cell.getAttribute('data-index'));
+        // CONTROLLO VINCITA O SCONFITTA
+
+          // IN CASO SI PRENDA LA BOMBA
+        if( bomb.includes(clicked)){
+            cell.classList.add('bomb');
+            score = 0 ;
+            alert ('you die');
+        }
+          // NEL CASO SI RIESCANO A CLICCARE TUTTE LE CELLE SENZA PRENDERE LE BOMBE
+        else if(score === maxScore ){
+            alert ('Hai vinto ');
+            score = 0 ;
+
+        }
+         // AGGIUNGO IL CLICK ALLA CELLA SELZIONATA
+        else {
+           cell.classList.add('clicked');
+           
+           if (!(cellClicked.includes(i))){
+           cellClicked.push(i);
+           score++;
+           console.log ( 'Cella cliccata: ' + i, score , maxScore);
+           }
+       }
     })
+    
     //* INSERISCO IN PAGINA
     grid.appendChild(cell); 
 

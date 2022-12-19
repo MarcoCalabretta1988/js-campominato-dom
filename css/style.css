@@ -107,6 +107,10 @@ main{
     background-color: blue;
 }
 
+.cell.bomb{
+    background-color : red;
+}
+
 /* FOOTER */
 
 footer{
