@@ -43,35 +43,35 @@ const userDisplay = document.getElementById('user-display');
 let isPlaying = false;
 let score = 0;
 
+//! FUNZIONI INTERNE ALL'EVENTO -----------------------------------
+
+
+const createCell = (number) => {
+    const cell = document.createElement( 'div');
+    cell.setAttribute('data-index' , number);
+    cell.classList.add('cell');
+    return cell;
+}
+
+const createArryNoRepeat = (number , max) => {
+    const bombPosition = [];
+    let nRandom = '';
+    for ( let i = 0 ; i < number ; i++){
+        nRandom = Math.floor(Math.random() * (max - 1))+1;
+        if (bombPosition.includes(nRandom)){
+        nRandom = Math.floor(Math.random() * (max - 1))+1;
+        }
+
+        bombPosition.push (nRandom);
+    }
+    return bombPosition;
+}
+//!----------------------------------------------------------------------
 // *CREO LOGICA AD AZIONAMENTO PULSANTE
 
 button.addEventListener('click' , () => {
 
 
-    //! FUNZIONI INTERNE ALL'EVENTO -----------------------------------
-
-
-    const createCell = (number) => {
-        const cell = document.createElement( 'div');
-        cell.setAttribute('data-index' , number);
-        cell.classList.add('cell');
-        return cell;
-    }
-    
-    const createArryNoRepeat = (number , max) => {
-        const bombPosition = [];
-        let nRandom = '';
-        for ( let i = 0 ; i < number ; i++){
-            nRandom = Math.floor(Math.random() * (max - 1))+1;
-            if (bombPosition.includes(nRandom)){
-            nRandom = Math.floor(Math.random() * (max - 1))+1;
-            }
-
-            bombPosition.push (nRandom);
-        }
-        return bombPosition;
-    }
-   //!----------------------------------------------------------------------
    
 //VARIABILE DI VALIDAZIONE
 let choise = true;
