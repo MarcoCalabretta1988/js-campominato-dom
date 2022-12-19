@@ -1,0 +1,117 @@
+/* CSS RESET */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* UTILITIES */
+
+.container{ 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* GENERIC */
+
+body{
+    font-family: sans-serif;
+}
+
+main .disp-none{
+    display: none;
+}
+
+
+/* HEADER */
+header{
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+}
+
+#left-header {
+    display: flex;
+    align-items: center;
+}
+
+#logo{
+ margin: 0 20px;
+}
+
+header button{
+    padding: 5px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* MAIN */
+
+main{
+    background-image: url(../img/cmback.jpg);
+    background-size: contain;
+    height: calc(100vh - 180px);
+    padding: 100px 0 ;
+}
+
+#grid{
+    height: 500px;
+    width:  500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;   
+    color: aliceblue;
+}
+
+#start-play{
+    text-align: center;
+    font-size: 50px;
+    padding: 100px;
+    border-radius: 20px;
+    border: 2px solid red;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgba(0, 0,0, 0.5);
+    color: aliceblue;
+}
+
+
+.cell{
+    border: 1px solid aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+#grid.easy .cell {
+    height: calc(100% / 10);
+    width: calc(100% / 10); 
+}
+
+#grid.medium .cell {
+    height: calc(100% / 9);
+    width: calc(100% / 9);
+}
+
+#grid.hard .cell {
+    height: calc(100% / 7);
+    width: calc(100% / 7);
+}
+
+.cell.clicked{
+    background-color: blue;
+}
+
+/* FOOTER */
+
+footer{
+    height: 80px;
+    line-height: 80px;
+    vertical-align: middle;
+    padding : 0 30px;
+}
